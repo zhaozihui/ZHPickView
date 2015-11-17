@@ -15,8 +15,10 @@
     };
 ```
 
-画面效果
-![image](https://raw.githubusercontent.com/zhaozihui/ZHPickView/master/IMG_1205.PNG)
+画面效果:
+
+<img src="https://raw.githubusercontent.com/zhaozihui/ZHPickView/master/IMG_1205.PNG" width="320" height="568" alt="画面效果"/>
+
 实现简单的DatePickView
 
 ```
@@ -29,7 +31,9 @@ ZHPickView *pickView = [[ZHPickView alloc] init];
         [alert show];
     };
 ```
-![image](https://raw.githubusercontent.com/zhaozihui/ZHPickView/master/IMG_1206.PNG)
+画面效果:
+
+<img src="https://raw.githubusercontent.com/zhaozihui/ZHPickView/master/IMG_1206.PNG " width="320" height="568" alt="画面效果"/>
 
 
 #联系作者:zhaozihui@gmail.com

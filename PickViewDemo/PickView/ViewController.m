@@ -28,7 +28,7 @@
 }
 - (IBAction)showPickView:(id)sender {
     ZHPickView *pickView = [[ZHPickView alloc] init];
-    [pickView setItems:@[@"item1",@"item2",@"item3"] title:@"DataTitle" isDate:NO];
+    [pickView setDataViewWithItem:@[@"item1",@"item2",@"item3"] title:@"DataTitle"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr)
     {
@@ -38,7 +38,7 @@
 }
 - (IBAction)showDate:(id)sender {
     ZHPickView *pickView = [[ZHPickView alloc] init];
-    [pickView setItems:@[] title:@"DateTitle" isDate:YES];
+    [pickView setDateViewWithTitle:@"dateTitle"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr)
     {

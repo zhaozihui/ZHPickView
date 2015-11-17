@@ -43,7 +43,65 @@
     
     
 }
-- (void)setItems:(NSArray *)items title:(NSString *)title isDate:(BOOL)isDate
+- (void)setDateViewWithTitle:(NSString *)title
+{
+    proTitleList = @[];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39.5)];
+    header.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, SCREENSIZE.width - 80, 39.5)];
+    titleLbl.text = title;
+    titleLbl.textAlignment = NSTextAlignmentCenter;
+    titleLbl.textColor = [self getColor:@"FF8000"];
+    titleLbl.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0];
+    [header addSubview:titleLbl];
+    
+    
+    
+    UIButton *submit = [[UIButton alloc] initWithFrame:CGRectMake(SCREENSIZE.width - 50, 10, 50 ,29.5)];
+    [submit setTitle:@"确定" forState:UIControlStateNormal];
+    [submit setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    submit.backgroundColor = [UIColor whiteColor];
+    submit.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
+    [submit addTarget:self action:@selector(submit:) forControlEvents:UIControlEventTouchUpInside];
+    [header addSubview:submit];
+    
+    UIButton *cancel = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, 50 ,29.5)];
+    [cancel setTitle:@"取消" forState:UIControlStateNormal];
+    [cancel setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    cancel.backgroundColor = [UIColor whiteColor];
+    cancel.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15.0];
+    [cancel addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    [header addSubview:cancel];
+    
+    [self addSubview:header];
+    
+    // 1.日期Picker
+    UIDatePicker *datePickr = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, SCREENSIZE.width, 270)];
+    datePickr.backgroundColor = [UIColor whiteColor];
+    // 1.1选择datePickr的显示风格
+    [datePickr setDatePickerMode:UIDatePickerModeDate];
+    
+    // 1.2查询所有可用的地区
+    //NSLog(@"%@", [NSLocale availableLocaleIdentifiers]);
+    
+    // 1.3设置datePickr的地区语言, zh_Han后面是s的就为简体中文,zh_Han后面是t的就为繁体中文
+    [datePickr setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_Hans_CN"]];
+    
+    // 1.4监听datePickr的数值变化
+    [datePickr addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    NSDate *date = [NSDate date];
+    
+    // 2.3 将转换后的日期设置给日期选择控件
+    [datePickr setDate:date];
+    
+    [self addSubview:datePickr];
+    
+    float height = 300;
+    self.frame = CGRectMake(0, SCREENSIZE.height - height, SCREENSIZE.width, height);
+}
+- (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title
 {
     proTitleList = items;
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39.5)];
@@ -75,40 +133,13 @@
     [header addSubview:cancel];
 
     [self addSubview:header];
+    UIPickerView *pick = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, SCREENSIZE.width, 270)];
     
-    if(isDate)
-    {
-        // 1.日期Picker
-        UIDatePicker *datePickr = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 40, SCREENSIZE.width, 270)];
-        datePickr.backgroundColor = [UIColor whiteColor];
-        // 1.1选择datePickr的显示风格
-        [datePickr setDatePickerMode:UIDatePickerModeDate];
-        
-        // 1.2查询所有可用的地区
-        //NSLog(@"%@", [NSLocale availableLocaleIdentifiers]);
-        
-        // 1.3设置datePickr的地区语言, zh_Han后面是s的就为简体中文,zh_Han后面是t的就为繁体中文
-        [datePickr setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_Hans_CN"]];
-        
-        // 1.4监听datePickr的数值变化
-        [datePickr addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-        
-        NSDate *date = [NSDate date];
-        
-        // 2.3 将转换后的日期设置给日期选择控件
-        [datePickr setDate:date];
-        [self addSubview:datePickr];
-        
-    } else
-    {
-        UIPickerView *pick = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, SCREENSIZE.width, 270)];
-        pick.delegate = self;
-        pick.backgroundColor = [UIColor whiteColor];
-        [self addSubview:pick];
-
-    }
+    pick.delegate = self;
+    pick.backgroundColor = [UIColor whiteColor];
+    [self addSubview:pick];
     
-       
+    
     float height = 300;
     self.frame = CGRectMake(0, SCREENSIZE.height - height, SCREENSIZE.width, height);
 }

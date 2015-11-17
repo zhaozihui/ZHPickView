@@ -7,13 +7,14 @@
 
 ```
  ZHPickView *pickView = [[ZHPickView alloc] init];
- [pickView setItems:@[@"item1",@"item2",@"item3"] title:@"DataTitle" isDate:NO];
+    [pickView setDataViewWithItem:@[@"item1",@"item2",@"item3"] title:@"DataTitle"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You have chooseed:" message:selectedStr delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     };
+
 ```
 
 画面效果:
@@ -24,7 +25,7 @@
 
 ```
 ZHPickView *pickView = [[ZHPickView alloc] init];
-    [pickView setItems:@[] title:@"DateTitle" isDate:YES];
+    [pickView setDateViewWithTitle:@"dateTitle"];
     [pickView showPickView:self];
     pickView.block = ^(NSString *selectedStr)
     {

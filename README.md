@@ -1,5 +1,6 @@
 #ZHPickView
-可以简单的替换之前的ActionSheet 实现自定义的pickView
+可以简单实现在底部弹出类似ActionView画面 
+实现自定义的pickView
 使用起来非常简单,可以自定义标题
 
 实现简单的PickView

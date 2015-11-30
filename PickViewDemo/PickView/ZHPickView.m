@@ -13,10 +13,12 @@
     UIView *bgView;
     NSArray *proTitleList;
     NSString *selectedStr;
+    BOOL isDate;
 }
 @synthesize block;
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
+    isDate = NO;
     return self;
 }
 - (void)showPickView:(UIViewController *)vc
@@ -45,6 +47,7 @@
 }
 - (void)setDateViewWithTitle:(NSString *)title
 {
+    isDate = YES;
     proTitleList = @[];
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39.5)];
     header.backgroundColor = [UIColor whiteColor];
@@ -103,6 +106,7 @@
 }
 - (void)setDataViewWithItem:(NSArray *)items title:(NSString *)title
 {
+    isDate = NO;
     proTitleList = items;
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENSIZE.width, 39.5)];
     header.backgroundColor = [UIColor whiteColor];
@@ -165,9 +169,18 @@
 {
     NSString *pickStr = selectedStr;
     if (!pickStr || pickStr.length == 0) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-         selectedStr = [formatter stringFromDate:[NSDate date]];
+        if(isDate) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd"];
+            selectedStr = [formatter stringFromDate:[NSDate date]];
+        } else {
+            if([proTitleList count] > 0) {
+                selectedStr = proTitleList[0];
+            }
+            
+        }
+
+       
 
     }
     block(selectedStr);
